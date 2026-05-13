@@ -1,0 +1,17 @@
+export const MAGIC_BALL = [
+  "Les cellules cancéreuses vont regretter d'avoir choisi TON corps 💪",
+  "80% ? Frère tu vas être dans les 100% sans aucun doute",
+  "La chimio va frapper plus fort qu'un Mike Tyson jeune",
+  "Prédiction : tu vas raconter cette histoire en rigolant dans 2 ans",
+  "Le cancer a fait l'erreur de sa vie en s'attaquant à toi",
+  "Spoiler alert : tu gagnes à la fin",
+  "Dans quelques mois tu vas manger un kebab de la victoire",
+  "Les statistiques sont avec toi, et toi t'es au-dessus des stats",
+  "Tu vas tellement guérir que même le cancer va être impressionné",
+  "Ton système immunitaire prépare le comeback du siècle",
+  "Le prochain scanner va être plus propre que ton casier judiciaire",
+  "Prédiction : soirée de célébration dans moins d'un an",
+  "Même Rocky a eu besoin de rounds difficiles avant de gagner",
+  "Le cancer ne sait pas encore à qui il a affaire",
+  "L'IGCCCG 2021 dit 89% — toi tu vises 100%",
+];
