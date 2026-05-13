@@ -6,9 +6,9 @@ export function TabHacks() {
   return (
     <div>
       {HACKS.map((cat, ci) => (
-        <Accordion key={ci} title={cat.cat} defaultOpen={ci === 0}>
-          {cat.hacks.map((h, hi) => (
-            <Tip key={hi} title={h.title} desc={h.desc} danger={h.title.startsWith("🚫")} />
+        <Accordion key={cat.cat} title={cat.cat} defaultOpen={ci === 0}>
+          {cat.hacks.map((h) => (
+            <Tip key={h.title} title={h.title} desc={h.desc} danger={h.danger} />
           ))}
         </Accordion>
       ))}

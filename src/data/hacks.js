@@ -30,10 +30,10 @@ export const HACKS = [
   {
     cat: "☠️ À FUIR ABSOLUMENT",
     hacks: [
-      { title: "🚫 PAMPLEMOUSSE", desc: "Contre-indication ABSOLUE. Bloque l'élimination de l'Étoposide par le foie → surdosage toxique mortel pour la moelle osseuse. Oranges de Séville aussi." },
-      { title: "🚫 Antioxydants en gélules", desc: "Vitamines C, E, Sélénium en compléments = ils PROTÈGENT le cancer. Les antioxydants neutralisent les radicaux libres que la chimio utilise pour tuer la tumeur." },
-      { title: "🚫 Huiles essentielles", desc: "Pas d'aromathérapie (eucalyptus etc). Composés volatils inflammatoires qui irritent des poumons déjà agressés par la bléomycine → fibrose." },
-      { title: "🚫 Plongée sous-marine À VIE", desc: "La bléomycine crée des lésions pulmonaires permanentes. Haute concentration d'O2 = détresse respiratoire mortelle. Préviens TOUT anesthésiste à vie." },
+      { danger: true, title: "🚫 PAMPLEMOUSSE", desc: "Contre-indication ABSOLUE. Bloque l'élimination de l'Étoposide par le foie → surdosage toxique mortel pour la moelle osseuse. Oranges de Séville aussi." },
+      { danger: true, title: "🚫 Antioxydants en gélules", desc: "Vitamines C, E, Sélénium en compléments = ils PROTÈGENT le cancer. Les antioxydants neutralisent les radicaux libres que la chimio utilise pour tuer la tumeur." },
+      { danger: true, title: "🚫 Huiles essentielles", desc: "Pas d'aromathérapie (eucalyptus etc). Composés volatils inflammatoires qui irritent des poumons déjà agressés par la bléomycine → fibrose." },
+      { danger: true, title: "🚫 Plongée sous-marine À VIE", desc: "La bléomycine crée des lésions pulmonaires permanentes. Haute concentration d'O2 = détresse respiratoire mortelle. Préviens TOUT anesthésiste à vie." },
     ],
   },
 ];

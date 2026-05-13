@@ -1,35 +1,45 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MAGIC_BALL } from "../../data/magicBall.js";
 import { theme as S } from "../../styles/theme.js";
+import { pickRandomIndex } from "../../utils/pick.js";
 
 export function MagicBall() {
-  const [pred, setPred] = useState(null);
+  const [idx, setIdx] = useState(null);
   const [shaking, setShaking] = useState(false);
+  const timeoutRef = useRef(null);
+
+  useEffect(() => () => clearTimeout(timeoutRef.current), []);
 
   const shake = () => {
+    if (shaking) return;
     setShaking(true);
-    setTimeout(() => {
-      setPred(MAGIC_BALL[Math.floor(Math.random() * MAGIC_BALL.length)]);
+    timeoutRef.current = setTimeout(() => {
+      setIdx((prev) => pickRandomIndex(MAGIC_BALL.length, prev ?? -1));
       setShaking(false);
     }, 1000);
   };
 
+  const pred = idx !== null ? MAGIC_BALL[idx] : null;
+
   return (
     <div style={{ textAlign: "center", padding: "20px 0" }}>
-      <div
+      <button
         onClick={shake}
+        aria-label="Secouer la boule magique"
         style={{
           width: 180,
           height: 180,
           borderRadius: "50%",
           background: "radial-gradient(circle at 35% 35%, #2a2a3e, #0a0a15)",
           margin: "0 auto",
-          cursor: "pointer",
+          cursor: shaking ? "wait" : "pointer",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           boxShadow: "0 0 40px rgba(251,191,36,0.2), inset 0 0 30px rgba(0,0,0,0.5)",
           animation: shaking ? "shake 0.5s ease-in-out infinite" : "float 3s ease-in-out infinite",
+          border: "none",
+          padding: 0,
         }}
       >
         <div
@@ -46,8 +56,8 @@ export function MagicBall() {
         >
           <span style={{ color: S.gold, fontSize: 20, fontWeight: 700, fontFamily: "serif" }}>8</span>
         </div>
-      </div>
-      <p style={{ color: S.dim, marginTop: 14, fontSize: 13, fontFamily: S.font }}>
+      </button>
+      <p style={{ color: S.dim, marginTop: 14, fontSize: 13 }}>
         {shaking ? "✨ Consultation des astres..." : "👆 Secoue la boule"}
       </p>
       {pred && !shaking && (
@@ -63,7 +73,7 @@ export function MagicBall() {
             animation: "fadeIn 0.5s ease-out",
           }}
         >
-          <p style={{ color: S.gold, fontSize: 15, fontWeight: 600, lineHeight: 1.5, margin: 0, fontFamily: S.font }}>
+          <p style={{ color: S.gold, fontSize: 15, fontWeight: 600, lineHeight: 1.5, margin: 0 }}>
             {pred}
           </p>
         </div>

@@ -1,4 +1,4 @@
-import { theme as S } from "../../styles/theme.js";
+import { theme as S, colors } from "../../styles/theme.js";
 
 export function Tip({ title, desc, danger }) {
   return (
@@ -10,12 +10,10 @@ export function Tip({ title, desc, danger }) {
         border: danger ? "1px solid rgba(239,68,68,0.15)" : "1px solid rgba(255,255,255,0.04)",
       }}
     >
-      <p style={{ color: danger ? "#ef4444" : S.gold, fontSize: 13, fontWeight: 600, margin: 0, fontFamily: S.font }}>
+      <p style={{ color: danger ? colors.danger : S.gold, fontSize: 13, fontWeight: 600, margin: 0 }}>
         {title}
       </p>
-      <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 12, marginTop: 5, lineHeight: 1.5, margin: "5px 0 0", fontFamily: S.font }}>
-        {desc}
-      </p>
+      <p style={{ ...S.muted, marginTop: 5 }}>{desc}</p>
     </div>
   );
 }

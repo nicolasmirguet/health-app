@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { theme as S } from "../../styles/theme.js";
 
 export function Accordion({ title, children, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
+  const panelId = useId();
+
   return (
     <div style={{ marginBottom: 8 }}>
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-controls={panelId}
         style={{
           width: "100%",
           textAlign: "left",
@@ -18,17 +22,19 @@ export function Accordion({ title, children, defaultOpen = false }) {
           cursor: "pointer",
           fontSize: 15,
           fontWeight: 600,
-          fontFamily: S.font,
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
         }}
       >
         <span>{title}</span>
-        <span style={{ fontSize: 11, color: S.dim }}>{open ? "▲" : "▼"}</span>
+        <span style={{ fontSize: 11, color: S.dim }} aria-hidden="true">{open ? "▲" : "▼"}</span>
       </button>
       {open && (
-        <div style={{ padding: "10px 0", animation: "fadeIn 0.3s", display: "flex", flexDirection: "column", gap: 6 }}>
+        <div
+          id={panelId}
+          style={{ padding: "10px 0", animation: "fadeIn 0.3s", display: "flex", flexDirection: "column", gap: 6 }}
+        >
           {children}
         </div>
       )}

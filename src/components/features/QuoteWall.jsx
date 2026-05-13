@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { QUOTES } from "../../data/quotes.js";
 import { theme as S } from "../../styles/theme.js";
+import { pickRandomIndex } from "../../utils/pick.js";
 
 export function QuoteWall() {
-  const [idx, setIdx] = useState(() => Math.floor(Math.random() * QUOTES.length));
+  const [idx, setIdx] = useState(() => pickRandomIndex(QUOTES.length));
   const q = QUOTES[idx];
 
   return (
@@ -14,9 +15,9 @@ export function QuoteWall() {
       <p style={{ color: S.text, fontSize: 19, fontWeight: 300, lineHeight: 1.7, maxWidth: 460, margin: "0 auto", fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic" }}>
         {q.text}
       </p>
-      <p style={{ color: S.gold, fontSize: 13, marginTop: 14, fontFamily: S.font }}>— {q.author}</p>
+      <p style={{ color: S.gold, fontSize: 13, marginTop: 14 }}>— {q.author}</p>
       <button
-        onClick={() => setIdx((idx + 1) % QUOTES.length)}
+        onClick={() => setIdx((i) => pickRandomIndex(QUOTES.length, i))}
         style={{
           marginTop: 20,
           padding: "9px 22px",
@@ -26,7 +27,6 @@ export function QuoteWall() {
           color: S.gold,
           cursor: "pointer",
           fontSize: 12,
-          fontFamily: S.font,
         }}
       >
         Prochaine ✨

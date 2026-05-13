@@ -1,5 +1,6 @@
 import { RED_FLAGS } from "../data/redFlags.js";
-import { theme as S } from "../styles/theme.js";
+import { theme as S, SEVERITY_COLORS, colors } from "../styles/theme.js";
+import { AccentCard } from "../components/ui/AccentCard.jsx";
 
 export function TabRedFlags() {
   return (
@@ -14,29 +15,17 @@ export function TabRedFlags() {
           marginBottom: 4,
         }}
       >
-        <p style={{ color: "#ef4444", fontSize: 14, fontWeight: 700, margin: 0, fontFamily: S.font }}>
+        <p style={{ color: colors.danger, fontSize: 14, fontWeight: 700, margin: 0 }}>
           🚨 IMPRIME CETTE PAGE ET COLLE-LA SUR LE FRIGO
         </p>
-        <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 11, marginTop: 4, fontFamily: S.font }}>
+        <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 11, marginTop: 4 }}>
           Chaque minute compte en urgence oncologique
         </p>
       </div>
-      {RED_FLAGS.map((rf, i) => (
-        <div
-          key={i}
-          style={{
-            ...S.card,
-            borderLeft: rf.flag.startsWith("🔴")
-              ? "3px solid #ef4444"
-              : rf.flag.startsWith("🟠")
-              ? "3px solid #f97316"
-              : "3px solid #eab308",
-          }}
-        >
-          <p style={{ color: S.text, fontSize: 14, fontWeight: 700, margin: 0, fontFamily: S.font }}>{rf.flag}</p>
-          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 12, marginTop: 6, lineHeight: 1.5, fontFamily: S.font }}>
-            {rf.desc}
-          </p>
+      {RED_FLAGS.map((rf) => (
+        <AccentCard key={rf.flag} color={SEVERITY_COLORS[rf.severity]}>
+          <p style={{ color: S.text, fontSize: 14, fontWeight: 700, margin: 0 }}>{rf.flag}</p>
+          <p style={{ ...S.muted, marginTop: 6 }}>{rf.desc}</p>
           <div
             style={{
               marginTop: 8,
@@ -46,11 +35,11 @@ export function TabRedFlags() {
               display: "inline-block",
             }}
           >
-            <p style={{ color: "#ef4444", fontSize: 11, fontWeight: 700, margin: 0, fontFamily: S.font }}>
+            <p style={{ color: colors.danger, fontSize: 11, fontWeight: 700, margin: 0 }}>
               → {rf.action}
             </p>
           </div>
-        </div>
+        </AccentCard>
       ))}
     </div>
   );
