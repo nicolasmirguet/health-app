@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MAGIC_BALL } from "../../data/magicBall.js";
-import { theme as S } from "../../styles/theme.js";
+import { colors, withAlpha } from "../../styles/theme.js";
 import { pickRandomIndex } from "../../utils/pick.js";
 
 export function MagicBall() {
@@ -22,58 +22,70 @@ export function MagicBall() {
   const pred = idx !== null ? MAGIC_BALL[idx] : null;
 
   return (
-    <div style={{ textAlign: "center", padding: "20px 0" }}>
+    <div style={{ textAlign: "center", padding: "32px 0 20px" }}>
       <button
         onClick={shake}
         aria-label="Secouer la boule magique"
         style={{
-          width: 180,
-          height: 180,
+          width: 200,
+          height: 200,
           borderRadius: "50%",
-          background: "radial-gradient(circle at 35% 35%, #2a2a3e, #0a0a15)",
+          background: `radial-gradient(circle at 35% 35%, ${colors.surfaceHigh}, ${colors.bg})`,
           margin: "0 auto",
           cursor: shaking ? "wait" : "pointer",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: "0 0 40px rgba(251,191,36,0.2), inset 0 0 30px rgba(0,0,0,0.5)",
-          animation: shaking ? "shake 0.5s ease-in-out infinite" : "float 3s ease-in-out infinite",
-          border: "none",
+          border: `1px solid ${withAlpha(colors.primarySolid, 0.2)}`,
           padding: 0,
+          animation: shaking
+            ? "shake 0.5s ease-in-out infinite"
+            : "pulseGlow 3s ease-in-out infinite, float 4s ease-in-out infinite",
         }}
       >
         <div
           style={{
-            width: 70,
-            height: 70,
+            width: 78,
+            height: 78,
             borderRadius: "50%",
-            background: "radial-gradient(circle, #1a1a2e, #0d0d1a)",
+            background: `radial-gradient(circle, ${colors.surfaceLow}, #050510)`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            border: "2px solid rgba(251,191,36,0.3)",
+            border: `2px solid ${withAlpha(colors.primarySolid, 0.4)}`,
+            boxShadow: `inset 0 0 12px ${withAlpha(colors.primarySolid, 0.2)}`,
           }}
         >
-          <span style={{ color: S.gold, fontSize: 20, fontWeight: 700, fontFamily: "serif" }}>8</span>
+          <span style={{ color: colors.primary, fontSize: 24, fontWeight: 700 }}>8</span>
         </div>
       </button>
-      <p style={{ color: S.dim, marginTop: 14, fontSize: 13 }}>
-        {shaking ? "✨ Consultation des astres..." : "👆 Secoue la boule"}
+      <p style={{ color: colors.onSurfaceVariant, marginTop: 24, fontSize: 15, letterSpacing: "-0.005em" }}>
+        {shaking ? "Consultation des astres…" : "Touche la boule pour une réponse"}
       </p>
       {pred && !shaking && (
         <div
           style={{
-            marginTop: 18,
-            padding: "18px 22px",
-            background: "linear-gradient(135deg, rgba(251,191,36,0.1), rgba(251,191,36,0.05))",
-            borderRadius: 14,
-            border: "1px solid rgba(251,191,36,0.2)",
-            maxWidth: 340,
-            margin: "18px auto 0",
+            marginTop: 28,
+            padding: "24px 28px",
+            background: colors.surfaceCard,
+            borderRadius: 28,
+            border: `1px solid ${withAlpha(colors.primarySolid, 0.2)}`,
+            maxWidth: 380,
+            margin: "28px auto 0",
             animation: "fadeIn 0.5s ease-out",
+            boxShadow: `inset 0 1px 0 0 rgba(255,255,255,0.08), 0 0 32px ${withAlpha(colors.primarySolid, 0.08)}`,
           }}
         >
-          <p style={{ color: S.gold, fontSize: 15, fontWeight: 600, lineHeight: 1.5, margin: 0 }}>
+          <p
+            style={{
+              color: colors.primary,
+              fontSize: 18,
+              fontWeight: 600,
+              lineHeight: 1.5,
+              margin: 0,
+              letterSpacing: "-0.01em",
+            }}
+          >
             {pred}
           </p>
         </div>

@@ -1,11 +1,11 @@
 import { DOC_QUESTIONS } from "../data/docQuestions.js";
 import { Accordion } from "../components/ui/Accordion.jsx";
-import { theme as S } from "../styles/theme.js";
+import { colors } from "../styles/theme.js";
 
 export function TabQuestions() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-      <p style={{ color: S.dim, fontSize: 12, textAlign: "center", marginBottom: 4 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <p style={{ color: colors.onSurfaceVariant, fontSize: 14, textAlign: "center", marginBottom: 10, lineHeight: 1.6 }}>
         Coche les questions posées au fur et à mesure des rendez-vous
       </p>
       {DOC_QUESTIONS.map((doc, di) => (
@@ -14,15 +14,13 @@ export function TabQuestions() {
             <div
               key={q}
               style={{
-                padding: "10px 12px",
+                padding: "14px 18px",
                 background: "rgba(255,255,255,0.02)",
-                borderRadius: 8,
+                borderRadius: 16,
                 border: "1px solid rgba(255,255,255,0.04)",
               }}
             >
-              <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 12, lineHeight: 1.5, margin: 0 }}>
-                ❓ {q}
-              </p>
+              <p style={{ color: colors.onSurfaceVariant, fontSize: 14, lineHeight: 1.6, margin: 0 }}>{q}</p>
             </div>
           ))}
         </Accordion>

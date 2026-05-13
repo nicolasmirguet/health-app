@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { JOKES } from "../../data/jokes.js";
-import { theme as S } from "../../styles/theme.js";
+import { theme as S, colors } from "../../styles/theme.js";
 
 export function JokeCard() {
   const [idx, setIdx] = useState(0);
@@ -13,22 +13,31 @@ export function JokeCard() {
   };
 
   return (
-    <div style={{ ...S.card, maxWidth: 420, margin: "0 auto" }}>
-      <p style={{ color: S.text, fontSize: 15, fontWeight: 600, lineHeight: 1.6 }}>
-        😂 {j.setup}
+    <div style={{ ...S.card, maxWidth: 480, margin: "0 auto" }}>
+      <p style={{ color: colors.onSurface, fontSize: 18, fontWeight: 500, lineHeight: 1.6, letterSpacing: "-0.01em" }}>
+        {j.setup}
       </p>
       {show ? (
         <div style={{ animation: "fadeIn 0.4s" }}>
-          <p style={{ color: S.gold, fontSize: 14, marginTop: 10, fontStyle: "italic", lineHeight: 1.5 }}>
+          <p
+            style={{
+              color: colors.primary,
+              fontSize: 16,
+              marginTop: 14,
+              fontStyle: "italic",
+              lineHeight: 1.6,
+              fontWeight: 500,
+            }}
+          >
             → {j.punchline}
           </p>
-          <button onClick={next} style={S.btn(true)}>
+          <button onClick={next} style={{ ...S.btn(true), marginTop: 18 }}>
             Suivante →
           </button>
         </div>
       ) : (
-        <button onClick={() => setShow(true)} style={{ ...S.btn(true), marginTop: 10 }}>
-          Voir la réponse 👀
+        <button onClick={() => setShow(true)} style={{ ...S.btn(true), marginTop: 18 }}>
+          Voir la réponse
         </button>
       )}
     </div>

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { HISTORY_QUIZ } from "../../data/historyQuiz.js";
-import { theme as S, colors } from "../../styles/theme.js";
+import { theme as S, colors, withAlpha } from "../../styles/theme.js";
 
 const OPTION_STYLES = {
   idle:    { border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)" },
-  correct: { border: "1px solid #22c55e",                background: "rgba(34,197,94,0.1)" },
-  wrong:   { border: "1px solid #ef4444",                background: "rgba(239,68,68,0.1)" },
+  correct: { border: `1px solid ${withAlpha(colors.success, 0.6)}`, background: withAlpha(colors.success, 0.12) },
+  wrong:   { border: `1px solid ${withAlpha(colors.danger, 0.6)}`, background: withAlpha(colors.danger, 0.12) },
   neutral: { border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" },
 };
 
@@ -35,30 +35,49 @@ export function HistoryQuiz() {
   };
 
   return (
-    <div style={{ maxWidth: 440, margin: "0 auto" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
-        <span style={{ color: S.dim, fontSize: 12 }}>
-          Q{qi + 1}/{HISTORY_QUIZ.length}
+    <div style={{ maxWidth: 480, margin: "0 auto" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 14, alignItems: "center" }}>
+        <span
+          style={{
+            color: colors.onSurfaceVariant,
+            fontSize: 12,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            fontWeight: 500,
+          }}
+        >
+          Question {qi + 1} / {HISTORY_QUIZ.length}
         </span>
-        <span style={{ color: S.gold, fontSize: 12 }}>Score: {score}</span>
+        <span style={{ color: colors.primary, fontSize: 13, fontWeight: 600 }}>Score · {score}</span>
       </div>
-      <p style={{ color: S.text, fontSize: 16, fontWeight: 600, marginBottom: 14, lineHeight: 1.5 }}>
-        📜 {q.q}
+      <p
+        style={{
+          color: colors.onSurface,
+          fontSize: 20,
+          fontWeight: 600,
+          marginBottom: 20,
+          lineHeight: 1.4,
+          letterSpacing: "-0.01em",
+        }}
+      >
+        {q.q}
       </p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {q.options.map((o, i) => (
           <button
             key={o}
             onClick={() => select(i)}
             disabled={sel !== null}
             style={{
-              padding: "11px 14px",
+              padding: "14px 18px",
               textAlign: "left",
-              borderRadius: 9,
+              borderRadius: 18,
               ...OPTION_STYLES[getOptionStatus(i, sel, q.answer)],
-              color: S.text,
+              color: colors.onSurface,
               cursor: sel !== null ? "default" : "pointer",
-              fontSize: 13,
+              fontSize: 15,
+              fontWeight: 500,
+              transition: "all 0.2s ease",
             }}
           >
             {o}
@@ -68,19 +87,19 @@ export function HistoryQuiz() {
       {sel !== null && (
         <div
           style={{
-            marginTop: 14,
-            padding: 14,
-            borderRadius: 10,
-            background: isCorrect ? "rgba(34,197,94,0.08)" : "rgba(239,68,68,0.08)",
-            border: `1px solid ${isCorrect ? "rgba(34,197,94,0.2)" : "rgba(239,68,68,0.2)"}`,
+            marginTop: 18,
+            padding: 18,
+            borderRadius: 22,
+            background: isCorrect ? withAlpha(colors.success, 0.08) : withAlpha(colors.danger, 0.08),
+            border: `1px solid ${isCorrect ? withAlpha(colors.success, 0.3) : withAlpha(colors.danger, 0.3)}`,
             animation: "fadeIn 0.4s",
           }}
         >
-          <p style={{ color: isCorrect ? colors.success : colors.danger, fontWeight: 700, margin: 0, fontSize: 13 }}>
-            {isCorrect ? "✅ Correct !" : "❌ Raté !"}
+          <p style={{ color: isCorrect ? colors.success : colors.danger, fontWeight: 700, margin: 0, fontSize: 15 }}>
+            {isCorrect ? "Correct" : "Raté"}
           </p>
-          <p style={{ ...S.muted, marginTop: 6 }}>{q.fact}</p>
-          <button onClick={next} style={{ ...S.btn(true), marginTop: 10, fontSize: 12 }}>
+          <p style={{ color: colors.onSurfaceVariant, fontSize: 14, lineHeight: 1.6, marginTop: 8 }}>{q.fact}</p>
+          <button onClick={next} style={{ ...S.btn(true), marginTop: 14 }}>
             Suivante →
           </button>
         </div>

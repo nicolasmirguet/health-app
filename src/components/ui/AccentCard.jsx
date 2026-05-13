@@ -6,7 +6,7 @@ export function AccentCard({ color, tint = false, children }) {
       style={{
         ...S.card,
         borderLeft: `3px solid ${color}`,
-        background: tint ? withAlpha(color, 0.04) : S.card.background,
+        background: tint ? withAlpha(color, 0.06) : S.card.background,
       }}
     >
       {children}
