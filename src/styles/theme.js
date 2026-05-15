@@ -1,7 +1,7 @@
 export const colors = {
   bg: "#000000",
   surface: "#131313",
-  surfaceCard: "#0a0a0f",
+  surfaceCard: "#10121a",
   surfaceLow: "#1b1b1b",
   surfaceHigh: "#2a2a2a",
   surfaceVariant: "#353535",
@@ -16,6 +16,10 @@ export const colors = {
   primaryDark: "#005763",
   sapphire: "#3b82f6",
   secondary: "#adc6ff",
+
+  spark: "#e0b364",
+  sparkSolid: "#d4a056",
+  sparkDeep: "#8a5a1f",
 
   danger: "#ffb4ab",
   dangerContainer: "#93000a",
@@ -44,7 +48,8 @@ export const theme = {
   dim: colors.onSurfaceVariant,
   text: colors.onSurface,
   font: "'Manrope', system-ui, sans-serif",
-  serif: "'Manrope', system-ui, sans-serif",
+  serif: "'Fraunces', 'Times New Roman', serif",
+  display: "'Fraunces', 'Times New Roman', serif",
   muted: { color: colors.onSurfaceVariant, fontSize: 14, lineHeight: 1.6 },
   sectionLabel: {
     color: colors.primary,

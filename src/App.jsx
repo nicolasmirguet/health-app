@@ -1,6 +1,9 @@
+import { useEffect, useRef } from "react";
 import { TABS, TAB_TITLES, TAB_SUBTITLES } from "./constants/tabs.js";
 import { theme as S, colors, withAlpha } from "./styles/theme.js";
 import { useLocalState } from "./utils/useLocalState.js";
+import { Icon } from "./components/ui/Icon.jsx";
+import { HeaderCarousel } from "./components/ui/HeaderCarousel.jsx";
 import { MagicBall } from "./components/features/MagicBall.jsx";
 import { JokeCard } from "./components/features/JokeCard.jsx";
 import { HistoryQuiz } from "./components/features/HistoryQuiz.jsx";
@@ -36,100 +39,195 @@ export default function App() {
   const View = VIEWS[activeTab];
   const title = TAB_TITLES[activeTab];
   const subtitle = TAB_SUBTITLES[activeTab];
+  const navRef = useRef(null);
+  const tabRefs = useRef({});
+
+  useEffect(() => {
+    const el = tabRefs.current[activeTab];
+    if (el && el.scrollIntoView) {
+      el.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
+  }, [activeTab]);
 
   return (
-    <div className="sapphire-aurora" style={{ minHeight: "100vh", color: colors.onSurface }}>
+    <div
+      className="sapphire-aurora app-shell"
+      style={{
+        color: colors.onSurface,
+        position: "relative",
+        paddingTop: "env(safe-area-inset-top, 0px)",
+      }}
+    >
       <header
         style={{
           position: "sticky",
           top: 0,
           zIndex: 40,
-          background: "rgba(19,19,19,0.7)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          borderBottom: `1px solid ${withAlpha(colors.outlineVariant, 0.4)}`,
+          background: "rgba(8,10,14,0.72)",
+          backdropFilter: "blur(24px) saturate(140%)",
+          WebkitBackdropFilter: "blur(24px) saturate(140%)",
+          borderBottom: `1px solid ${withAlpha(colors.outlineVariant, 0.35)}`,
         }}
       >
-        <div style={{ padding: "16px 24px", textAlign: "center", maxWidth: 720, margin: "0 auto" }}>
-          <h1
+        <div
+          style={{
+            padding: "18px 20px 18px",
+            paddingLeft: "max(20px, env(safe-area-inset-left, 0px))",
+            paddingRight: "max(20px, env(safe-area-inset-right, 0px))",
+            maxWidth: 720,
+            margin: "0 auto",
+          }}
+        >
+          <div
             style={{
-              fontSize: 22,
-              fontWeight: 700,
-              color: colors.primary,
-              letterSpacing: "-0.01em",
-              margin: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
             }}
           >
-            Force Frère
-          </h1>
-          <p
-            style={{
-              color: colors.onSurfaceVariant,
-              fontSize: 11,
-              marginTop: 3,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              fontWeight: 500,
-            }}
-          >
-            4 cycles · 12 semaines · 89%
-          </p>
+            <span
+              aria-hidden="true"
+              style={{
+                width: 26,
+                height: 26,
+                borderRadius: "50%",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: `radial-gradient(circle at 30% 30%, ${withAlpha(colors.spark, 0.55)}, ${withAlpha(colors.primarySolid, 0.18)} 60%, transparent 75%)`,
+                border: `1px solid ${withAlpha(colors.spark, 0.45)}`,
+                color: colors.spark,
+                boxShadow: `0 0 18px ${withAlpha(colors.spark, 0.25)}`,
+              }}
+            >
+              <Icon name="sparkle" size={13} strokeWidth={2} />
+            </span>
+            <h1
+              className="display"
+              style={{
+                fontSize: 26,
+                fontWeight: 500,
+                color: colors.onSurface,
+                letterSpacing: "-0.025em",
+                margin: 0,
+                fontVariationSettings: "'SOFT' 50, 'WONK' 0",
+              }}
+            >
+              Force <span className="display-wonk" style={{ color: colors.primary, fontWeight: 400 }}>Frère</span>
+            </h1>
+          </div>
+
+          <HeaderCarousel />
         </div>
       </header>
 
-      <nav
+      <div
         style={{
-          display: "flex",
-          overflowX: "auto",
-          padding: "16px 16px 4px",
-          gap: 8,
-          scrollbarWidth: "none",
+          position: "relative",
+          zIndex: 1,
         }}
-        aria-label="Navigation principale"
       >
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 6,
+            width: 28,
+            background: "linear-gradient(90deg, #000 10%, transparent 100%)",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        />
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            bottom: 6,
+            width: 28,
+            background: "linear-gradient(270deg, #000 10%, transparent 100%)",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        />
+        <nav
+          ref={navRef}
+          style={{
+            display: "flex",
+            overflowX: "auto",
+            padding: "16px 0 8px",
+            paddingLeft: "max(20px, env(safe-area-inset-left, 0px))",
+            paddingRight: "max(20px, env(safe-area-inset-right, 0px))",
+            gap: 6,
+            scrollbarWidth: "none",
+            scrollBehavior: "smooth",
+            WebkitOverflowScrolling: "touch",
+          }}
+          aria-label="Navigation principale"
+        >
         {TABS.map((t) => {
           const isActive = activeTab === t.id;
           return (
             <button
               key={t.id}
+              ref={(el) => { tabRefs.current[t.id] = el; }}
               onClick={() => setTab(t.id)}
               aria-current={isActive ? "page" : undefined}
               style={{
                 flex: "0 0 auto",
-                padding: "10px 16px",
-                background: isActive ? withAlpha(colors.primarySolid, 0.12) : "rgba(255,255,255,0.03)",
-                border: `1px solid ${isActive ? withAlpha(colors.primarySolid, 0.4) : "rgba(255,255,255,0.06)"}`,
+                minHeight: 44,
+                padding: "11px 16px",
+                background: isActive ? withAlpha(colors.primarySolid, 0.13) : "rgba(255,255,255,0.025)",
+                border: `1px solid ${isActive ? withAlpha(colors.primarySolid, 0.42) : "rgba(255,255,255,0.06)"}`,
                 borderRadius: 9999,
                 color: isActive ? colors.primary : colors.onSurfaceVariant,
                 cursor: "pointer",
                 fontSize: 13,
                 fontWeight: isActive ? 600 : 500,
-                display: "flex",
+                letterSpacing: "0.01em",
+                display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
                 whiteSpace: "nowrap",
-                transition: "all 0.2s ease",
-                boxShadow: isActive ? `0 0 20px 0 ${withAlpha(colors.primarySolid, 0.15)}` : "none",
+                transition: "all 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
+                boxShadow: isActive ? `0 0 22px 0 ${withAlpha(colors.primarySolid, 0.18)}, inset 0 1px 0 0 rgba(255,255,255,0.06)` : "none",
               }}
             >
-              <span style={{ fontSize: 16 }} aria-hidden="true">{t.icon}</span>
+              <Icon name={t.icon} size={15} strokeWidth={isActive ? 2 : 1.75} />
               <span>{t.label}</span>
             </button>
           );
         })}
-      </nav>
+        </nav>
+      </div>
 
-      <main style={{ padding: "32px 24px 48px", maxWidth: 720, margin: "0 auto" }}>
+      <main
+        style={{
+          padding: "32px 20px 48px",
+          paddingLeft: "max(20px, env(safe-area-inset-left, 0px))",
+          paddingRight: "max(20px, env(safe-area-inset-right, 0px))",
+          maxWidth: 720,
+          margin: "0 auto",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         {title && (
-          <div style={{ marginBottom: 28 }}>
+          <div style={{ marginBottom: 32, animation: "slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both" }}>
             <h2
+              className="display"
               style={{
-                fontSize: 32,
-                fontWeight: 700,
+                fontSize: "clamp(26px, 7.5vw, 36px)",
+                fontWeight: 500,
                 color: colors.onSurface,
-                letterSpacing: "-0.02em",
-                lineHeight: 1.15,
+                letterSpacing: "-0.03em",
+                lineHeight: 1.08,
                 margin: 0,
+                fontVariationSettings: "'SOFT' 80, 'WONK' 0",
               }}
             >
               {title}
@@ -138,26 +236,58 @@ export default function App() {
               <p
                 style={{
                   color: colors.onSurfaceVariant,
-                  fontSize: 16,
-                  marginTop: 8,
+                  fontSize: 15.5,
+                  marginTop: 10,
                   lineHeight: 1.6,
                   fontWeight: 400,
+                  maxWidth: 560,
                 }}
               >
                 {subtitle}
               </p>
             )}
+            <div
+              aria-hidden="true"
+              style={{
+                marginTop: 16,
+                height: 1,
+                width: 48,
+                background: `linear-gradient(90deg, ${colors.spark}, transparent)`,
+                opacity: 0.7,
+              }}
+            />
           </div>
         )}
         <View />
       </main>
 
-      <footer style={{ textAlign: "center", padding: "24px 24px 32px", borderTop: `1px solid ${withAlpha(colors.outlineVariant, 0.3)}`, marginTop: 24 }}>
-        <p style={{ color: colors.onSurfaceVariant, fontSize: 11, marginBottom: 6, opacity: 0.7 }}>
+      <footer
+        style={{
+          textAlign: "center",
+          padding: "28px 24px",
+          paddingBottom: "calc(36px + env(safe-area-inset-bottom, 0px))",
+          paddingLeft: "max(24px, env(safe-area-inset-left, 0px))",
+          paddingRight: "max(24px, env(safe-area-inset-right, 0px))",
+          borderTop: `1px solid ${withAlpha(colors.outlineVariant, 0.25)}`,
+          marginTop: 24,
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <p
+          className="kicker"
+          style={{ color: colors.spark, opacity: 0.75, marginBottom: 12 }}
+        >
+          · Fait avec amour ·
+        </p>
+        <p style={{ color: colors.onSurfaceVariant, fontSize: 11.5, marginBottom: 6, opacity: 0.75, lineHeight: 1.6 }}>
           Non substitut à l'avis médical. En cas de doute, contacte ton oncologue.
         </p>
-        <p style={{ color: colors.outline, fontSize: 11, opacity: 0.5 }}>
-          Fait avec amour par un frère pour son frère
+        <p
+          className="display-wonk"
+          style={{ color: colors.outline, fontSize: 13, opacity: 0.6, fontStyle: "italic" }}
+        >
+          d'un frère pour son frère.
         </p>
       </footer>
     </div>

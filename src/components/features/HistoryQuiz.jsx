@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { HISTORY_QUIZ } from "../../data/historyQuiz.js";
 import { theme as S, colors, withAlpha } from "../../styles/theme.js";
+import { Icon } from "../ui/Icon.jsx";
 
 const OPTION_STYLES = {
   idle:    { border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)" },
@@ -89,7 +90,7 @@ export function HistoryQuiz() {
           style={{
             marginTop: 18,
             padding: 18,
-            borderRadius: 22,
+            borderRadius: 24,
             background: isCorrect ? withAlpha(colors.success, 0.08) : withAlpha(colors.danger, 0.08),
             border: `1px solid ${isCorrect ? withAlpha(colors.success, 0.3) : withAlpha(colors.danger, 0.3)}`,
             animation: "fadeIn 0.4s",
@@ -99,8 +100,18 @@ export function HistoryQuiz() {
             {isCorrect ? "Correct" : "Raté"}
           </p>
           <p style={{ color: colors.onSurfaceVariant, fontSize: 14, lineHeight: 1.6, marginTop: 8 }}>{q.fact}</p>
-          <button onClick={next} style={{ ...S.btn(true), marginTop: 14 }}>
-            Suivante →
+          <button
+            onClick={next}
+            style={{
+              ...S.btn(true),
+              marginTop: 14,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            Suivante
+            <Icon name="arrowRight" size={14} strokeWidth={2} />
           </button>
         </div>
       )}

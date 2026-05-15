@@ -1,15 +1,15 @@
 export const TABS = [
-  { id: "ball", label: "Boule", icon: "🎱" },
-  { id: "bep", label: "J1→J21", icon: "📅" },
-  { id: "hacks", label: "Hacks", icon: "🧠" },
-  { id: "flags", label: "Urgences", icon: "🚨" },
-  { id: "bag", label: "Sac", icon: "🎒" },
-  { id: "recettes", label: "Recettes", icon: "🍲" },
-  { id: "questions", label: "Médecin", icon: "📋" },
-  { id: "rire", label: "Rire", icon: "😂" },
-  { id: "quiz", label: "Quiz", icon: "📜" },
-  { id: "quotes", label: "Quotes", icon: "✨" },
-  { id: "apps", label: "Aide", icon: "🤝" },
+  { id: "ball", label: "Boule", icon: "sparkle" },
+  { id: "bep", label: "J1→J21", icon: "calendar" },
+  { id: "hacks", label: "Hacks", icon: "brain" },
+  { id: "flags", label: "Urgences", icon: "alert" },
+  { id: "bag", label: "Sac", icon: "bag" },
+  { id: "recettes", label: "Recettes", icon: "pot" },
+  { id: "questions", label: "Médecin", icon: "clipboard" },
+  { id: "rire", label: "Rire", icon: "smile" },
+  { id: "quiz", label: "Quiz", icon: "scroll" },
+  { id: "quotes", label: "Quotes", icon: "quote" },
+  { id: "apps", label: "Aide", icon: "handHeart" },
 ];
 
 export const TAB_TITLES = {

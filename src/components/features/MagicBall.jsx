@@ -56,7 +56,18 @@ export function MagicBall() {
             boxShadow: `inset 0 0 12px ${withAlpha(colors.primarySolid, 0.2)}`,
           }}
         >
-          <span style={{ color: colors.primary, fontSize: 24, fontWeight: 700 }}>8</span>
+          <span
+            className="display-wonk"
+            style={{
+              color: colors.primary,
+              fontSize: 30,
+              fontWeight: 500,
+              textShadow: `0 0 14px ${withAlpha(colors.primarySolid, 0.5)}`,
+              lineHeight: 1,
+            }}
+          >
+            8
+          </span>
         </div>
       </button>
       <p style={{ color: colors.onSurfaceVariant, marginTop: 24, fontSize: 15, letterSpacing: "-0.005em" }}>
@@ -68,7 +79,7 @@ export function MagicBall() {
             marginTop: 28,
             padding: "24px 28px",
             background: colors.surfaceCard,
-            borderRadius: 28,
+            borderRadius: 24,
             border: `1px solid ${withAlpha(colors.primarySolid, 0.2)}`,
             maxWidth: 380,
             margin: "28px auto 0",
@@ -77,13 +88,15 @@ export function MagicBall() {
           }}
         >
           <p
+            className="display"
             style={{
               color: colors.primary,
-              fontSize: 18,
-              fontWeight: 600,
-              lineHeight: 1.5,
+              fontSize: 20,
+              fontWeight: 500,
+              lineHeight: 1.4,
               margin: 0,
-              letterSpacing: "-0.01em",
+              letterSpacing: "-0.015em",
+              fontVariationSettings: "'SOFT' 60, 'WONK' 0",
             }}
           >
             {pred}

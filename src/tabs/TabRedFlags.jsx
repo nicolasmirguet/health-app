@@ -1,23 +1,31 @@
 import { RED_FLAGS } from "../data/redFlags.js";
 import { SEVERITY_COLORS, colors, withAlpha } from "../styles/theme.js";
 import { AccentCard } from "../components/ui/AccentCard.jsx";
+import { Icon } from "../components/ui/Icon.jsx";
 
 export function TabRedFlags() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
       <div
         style={{
-          padding: "18px 22px",
+          padding: "20px 22px",
           background: withAlpha(colors.danger, 0.08),
-          borderRadius: 22,
-          border: `1px solid ${withAlpha(colors.danger, 0.25)}`,
+          borderRadius: 24,
+          border: `1px solid ${withAlpha(colors.danger, 0.3)}`,
           textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 8,
         }}
       >
+        <span style={{ color: colors.danger }} aria-hidden="true">
+          <Icon name="printer" size={20} strokeWidth={1.75} />
+        </span>
         <p style={{ color: colors.danger, fontSize: 15, fontWeight: 700, margin: 0, letterSpacing: "-0.005em" }}>
           Imprime cette page · colle-la sur le frigo
         </p>
-        <p style={{ color: colors.onSurfaceVariant, fontSize: 13, marginTop: 6 }}>
+        <p style={{ color: colors.onSurfaceVariant, fontSize: 13, margin: 0 }}>
           Chaque minute compte en urgence oncologique
         </p>
       </div>
@@ -33,12 +41,15 @@ export function TabRedFlags() {
               padding: "8px 14px",
               background: withAlpha(colors.danger, 0.12),
               borderRadius: 9999,
-              display: "inline-block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
               border: `1px solid ${withAlpha(colors.danger, 0.25)}`,
             }}
           >
+            <Icon name="arrowRight" size={12} strokeWidth={2.25} style={{ color: colors.danger }} />
             <p style={{ color: colors.danger, fontSize: 12, fontWeight: 600, margin: 0, letterSpacing: "0.02em" }}>
-              → {rf.action}
+              {rf.action}
             </p>
           </div>
         </AccentCard>

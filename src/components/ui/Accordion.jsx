@@ -1,5 +1,6 @@
 import { useId, useState } from "react";
 import { colors, withAlpha } from "../../styles/theme.js";
+import { Icon } from "./Icon.jsx";
 
 export function Accordion({ title, children, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -13,6 +14,7 @@ export function Accordion({ title, children, defaultOpen = false }) {
         aria-controls={panelId}
         style={{
           width: "100%",
+          minHeight: 56,
           textAlign: "left",
           padding: "16px 20px",
           background: open ? withAlpha(colors.primarySolid, 0.08) : colors.surfaceCard,
@@ -26,6 +28,7 @@ export function Accordion({ title, children, defaultOpen = false }) {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          gap: 12,
           transition: "all 0.2s ease",
           boxShadow: open
             ? `inset 0 1px 0 0 rgba(255,255,255,0.08), 0 0 24px 0 ${withAlpha(colors.primarySolid, 0.1)}`
@@ -33,8 +36,17 @@ export function Accordion({ title, children, defaultOpen = false }) {
         }}
       >
         <span>{title}</span>
-        <span style={{ fontSize: 14, color: open ? colors.primary : colors.onSurfaceVariant, fontWeight: 400 }} aria-hidden="true">
-          {open ? "▲" : "▼"}
+        <span
+          style={{
+            color: open ? colors.primary : colors.onSurfaceVariant,
+            transform: open ? "rotate(90deg)" : "rotate(0deg)",
+            transition: "transform 0.2s ease",
+            display: "inline-flex",
+            flexShrink: 0,
+          }}
+          aria-hidden="true"
+        >
+          <Icon name="chevronRight" size={14} strokeWidth={2} />
         </span>
       </button>
       {open && (

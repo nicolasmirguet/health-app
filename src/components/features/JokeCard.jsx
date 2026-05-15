@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { JOKES } from "../../data/jokes.js";
 import { theme as S, colors } from "../../styles/theme.js";
+import { Icon } from "../ui/Icon.jsx";
 
 export function JokeCard() {
   const [idx, setIdx] = useState(0);
@@ -19,20 +20,44 @@ export function JokeCard() {
       </p>
       {show ? (
         <div style={{ animation: "fadeIn 0.4s" }}>
-          <p
+          <div
             style={{
-              color: colors.primary,
-              fontSize: 16,
+              display: "flex",
+              gap: 10,
+              alignItems: "flex-start",
               marginTop: 14,
-              fontStyle: "italic",
-              lineHeight: 1.6,
-              fontWeight: 500,
             }}
           >
-            → {j.punchline}
-          </p>
-          <button onClick={next} style={{ ...S.btn(true), marginTop: 18 }}>
-            Suivante →
+            <span style={{ color: colors.primary, marginTop: 6, flexShrink: 0 }} aria-hidden="true">
+              <Icon name="arrowRight" size={14} strokeWidth={2.25} />
+            </span>
+            <p
+              className="display"
+              style={{
+                color: colors.primary,
+                fontSize: 17,
+                fontStyle: "italic",
+                lineHeight: 1.5,
+                fontWeight: 400,
+                margin: 0,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {j.punchline}
+            </p>
+          </div>
+          <button
+            onClick={next}
+            style={{
+              ...S.btn(true),
+              marginTop: 18,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            Suivante
+            <Icon name="arrowRight" size={14} strokeWidth={2} />
           </button>
         </div>
       ) : (
